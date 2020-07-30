@@ -1,0 +1,34 @@
+.display {
+  border: 1px solid whitesmoke;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: 40% 60%;
+      grid-template-rows: 40% 60%;
+  height: 100px;
+  padding-right: 30px;
+  width: 500px;
+}
+
+.display > * {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: right;
+      justify-self: right;
+}
+
+.display__small {
+  color: grey;
+  font-size: 2rem;
+  max-width: 440px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.display__big {
+  color: whitesmoke;
+  font-size: 4rem;
+}
+/*# sourceMappingURL=display.css.map */

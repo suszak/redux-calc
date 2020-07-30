@@ -1,0 +1,9 @@
+.keyboard {
+    background-color: rgb(30, 30, 30);
+    border: 1px solid whitesmoke;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 400px;
+    width: 500px;
+}

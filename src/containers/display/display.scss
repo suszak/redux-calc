@@ -1,0 +1,27 @@
+.display {
+  border: 1px solid whitesmoke;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40% 60%;
+  height: 100px;
+  padding-right: 30px;
+  width: 500px;
+
+  & > * {
+    align-self: center;
+    justify-self: right;
+  }
+
+  &__small {
+    color: grey;
+    font-size: 2rem;
+    max-width: 440px;
+    overflow-x: hidden;
+    white-space: nowrap;
+  }
+
+  &__big {
+    color: whitesmoke;
+    font-size: 4rem;
+  }
+}

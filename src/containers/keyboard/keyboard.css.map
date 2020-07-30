@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAC;EACN,gBAAgB,EAAE,OAAe;EACjC,MAAM,EAAE,oBAAoB;EAC5B,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,eAAe;EACtC,kBAAkB,EAAE,uBAAuB;EAC3C,MAAM,EAAE,KAAK;EACb,KAAK,EAAE,KAAK;CACf",
+    "sources": [
+        "keyboard.scss"
+    ],
+    "names": [],
+    "file": "keyboard.css"
+}
