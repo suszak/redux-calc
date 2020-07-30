@@ -11,7 +11,7 @@ export const changeSign = (
     )
   ) {
     return {
-      bigArray: convertNumberToString(
+      bigString: convertNumberToString(
         -1 *
           convertStringToNumber(
             smallDisplayValuesArrayOfStrings.slice(-1).join("")
@@ -32,14 +32,14 @@ export const changeSign = (
   } else {
     if (convertStringToNumber(bigDisplayString) !== 0) {
       return {
-        bigArray: convertNumberToString(
+        bigString: convertNumberToString(
           -1 * convertStringToNumber(bigDisplayString)
         ),
         smallArray: null,
         isSignChanged: true,
       };
     } else {
-      return { array: bigDisplayString, isSignChanged: false };
+      return { bigString: bigDisplayString, isSignChanged: false };
     }
   }
 };

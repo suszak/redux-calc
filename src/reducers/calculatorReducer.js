@@ -195,7 +195,7 @@ export default function calculateReducer(
       );
       return {
         ...state,
-        bigDisplayString: signChangedObject.bigArray,
+        bigDisplayString: signChangedObject.bigString,
         smallDisplayValuesArrayOfStrings:
           signChangedObject.smallArray !== null
             ? signChangedObject.smallArray

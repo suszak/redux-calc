@@ -61,7 +61,7 @@ export const calculatePower = (
             : convertNumberToString(Math.pow(convertStringToNumber(element), 2))
         );
         return {
-          bigString: temp.slice(-1),
+          bigString: temp.slice(-1).join(""),
           smallArray: temp,
         };
       }
