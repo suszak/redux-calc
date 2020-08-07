@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import "./keyboard.css";
+import "./keyboard.scss";
 import { useDispatch } from "react-redux";
 import Button from "../../component/button/button";
 import * as calculatorActions from "../../actions/calculatorActions";

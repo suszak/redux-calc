@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Keyboard from "./containers/keyboard/keyboard";
 import Display from "./containers/display/display";
 

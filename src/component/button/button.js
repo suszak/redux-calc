@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./button.css";
+import "./button.scss";
 
 const Button = ({ value, onclick }) => {
   const calculator = useSelector((state) => state.calculator);

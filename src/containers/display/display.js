@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./display.css";
+import "./display.scss";
 import { formatBigDisplay } from "../../helpers/formatBigDisplay";
 
 const Display = () => {
