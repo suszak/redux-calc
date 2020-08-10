@@ -99,7 +99,7 @@ export const calculateSquareRoot = (
               : convertNumberToString(Math.sqrt(convertStringToNumber(element)))
           );
           return {
-            bigString: temp.slice(-1),
+            bigString: temp.slice(-1).join(""),
             smallArray: temp,
             error: false,
           };
