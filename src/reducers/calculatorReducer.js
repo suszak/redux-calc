@@ -41,6 +41,9 @@ export default function calculateReducer(
           : [],
         result: false,
         isEqualSignUsed: false,
+        lastNumberAndOperationString: state.isError
+          ? ""
+          : state.lastNumberAndOperationString,
         isError: false,
         isSignChanged: false,
       };
@@ -183,6 +186,9 @@ export default function calculateReducer(
               state.smallDisplayValuesArrayOfStrings,
               state.isEqualSignUsed
             ),
+        lastNumberAndOperationString: state.isError
+          ? ""
+          : state.lastNumberAndOperationString,
         isError: false,
         isSignChanged: false,
       };
