@@ -13,14 +13,19 @@ export const createNewSmallDisplayObject = (
   if (isError) {
     return [];
   } else {
+    // !isError
     if (isEqualSignUsed) {
       if (operation === "=") {
         //  =
-        return [
-          bigDisplayString,
-          ...lastNumberAndOperationString.split(" "),
-          operation,
-        ];
+        if (smallDisplayValuesArrayOfStrings.length === 2) {
+          return smallDisplayValuesArrayOfStrings;
+        } else {
+          return [
+            bigDisplayString,
+            ...lastNumberAndOperationString.split(" "),
+            operation,
+          ];
+        }
       } else {
         //  +, -, *, /
         return [
