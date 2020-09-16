@@ -1,45 +1,32 @@
 import { convertStringToNumber } from "./convertStringToNumber";
 import { convertNumberToString } from "./convertNumberToString";
 
-export const changeSign = (
-  bigDisplayString,
-  smallDisplayValuesArrayOfStrings
-) => {
-  if (
-    !isNaN(
-      convertStringToNumber(smallDisplayValuesArrayOfStrings.slice(-1).join(""))
-    )
-  ) {
+export const changeSign = ({ mainNumber, historyArray }) => {
+  if (!isNaN(convertStringToNumber(historyArray.slice(-1).join("")))) {
     return {
       bigString: convertNumberToString(
-        -1 *
-          convertStringToNumber(
-            smallDisplayValuesArrayOfStrings.slice(-1).join("")
-          )
+        -1 * convertStringToNumber(historyArray.slice(-1).join(""))
       ),
-      smallArray: smallDisplayValuesArrayOfStrings.map((element, index) =>
-        index !== smallDisplayValuesArrayOfStrings.length - 1
+      smallArray: historyArray.map((element, index) =>
+        index !== historyArray.length - 1
           ? element
           : convertNumberToString(
-              -1 *
-                convertStringToNumber(
-                  smallDisplayValuesArrayOfStrings.slice(-1).join("")
-                )
+              -1 * convertStringToNumber(historyArray.slice(-1).join(""))
             )
       ),
       isSignChanged: true,
     };
   } else {
-    if (convertStringToNumber(bigDisplayString) !== 0) {
+    if (convertStringToNumber(mainNumber) !== 0) {
       return {
         bigString: convertNumberToString(
-          -1 * convertStringToNumber(bigDisplayString)
+          -1 * convertStringToNumber(mainNumber)
         ),
         smallArray: null,
         isSignChanged: true,
       };
     } else {
-      return { bigString: bigDisplayString, isSignChanged: false };
+      return { bigString: mainNumber, isSignChanged: false };
     }
   }
 };

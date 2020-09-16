@@ -2,18 +2,18 @@ import { convertNumberToString } from "./convertNumberToString";
 import { convertStringToNumber } from "./convertStringToNumber";
 import { calculateResult } from "./calculateResult";
 
-export const calculatePercent = (
-  smallDisplayValuesArrayOfStrings,
-  bigDisplayString,
+export const calculatePercent = ({
+  historyArray,
+  mainNumber,
   isEqualSignUsed,
-  result
-) => {
-  const bigDisplayNumber = convertStringToNumber(bigDisplayString);
+  result,
+}) => {
+  const bigDisplayNumber = convertStringToNumber(mainNumber);
   const lastFromSmallArrayNumber = convertStringToNumber(
-    smallDisplayValuesArrayOfStrings.slice(-1).join("")
+    historyArray.slice(-1).join("")
   );
 
-  if (smallDisplayValuesArrayOfStrings.length < 1) {
+  if (historyArray.length < 1) {
     return {
       bigString: "0",
       smallArray: ["0"],
@@ -28,13 +28,13 @@ export const calculatePercent = (
       bigString: calculatedString,
       smallArray: isEqualSignUsed
         ? [calculatedString]
-        : [...smallDisplayValuesArrayOfStrings, calculatedString],
+        : [...historyArray, calculatedString],
     };
   }
 
   const prevResult = isNaN(lastFromSmallArrayNumber)
-    ? calculateResult(smallDisplayValuesArrayOfStrings.slice(0, -1)).string
-    : calculateResult(smallDisplayValuesArrayOfStrings.slice(0, -2)).string;
+    ? calculateResult(historyArray.slice(0, -1)).string
+    : calculateResult(historyArray.slice(0, -2)).string;
 
   const calculatedString = convertNumberToString(
     convertStringToNumber(prevResult) * (bigDisplayNumber / 100)
@@ -43,11 +43,9 @@ export const calculatePercent = (
   return {
     bigString: calculatedString,
     smallArray: isNaN(lastFromSmallArrayNumber)
-      ? [...smallDisplayValuesArrayOfStrings, calculatedString]
-      : smallDisplayValuesArrayOfStrings.map((element, index) =>
-          index !== smallDisplayValuesArrayOfStrings.length - 1
-            ? element
-            : calculatedString
+      ? [...historyArray, calculatedString]
+      : historyArray.map((element, index) =>
+          index !== historyArray.length - 1 ? element : calculatedString
         ),
   };
 };

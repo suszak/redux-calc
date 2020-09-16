@@ -1,12 +1,12 @@
-export const bigDisplayValueChanged = (number) => ({
-  type: "bigDisplayValueChanged",
+export const mainNumberChanged = (number) => ({
+  type: "mainNumberChanged",
   payload: {
     number,
   },
 });
 
-export const bigDisplayStringCleared = () => ({
-  type: "bigDisplayStringCleared",
+export const mainNumberCleared = () => ({
+  type: "mainNumberCleared",
 });
 
 export const allCleared = () => ({

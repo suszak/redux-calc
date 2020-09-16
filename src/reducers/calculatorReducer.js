@@ -10,8 +10,8 @@ import { calculatePercent } from "../helpers/calculatePercent";
 
 export default function calculateReducer(
   state = {
-    bigDisplayString: "0",
-    smallDisplayValuesArrayOfStrings: [],
+    mainNumber: "0",
+    historyArray: [],
     lastNumberAndOperationString: "",
     result: false,
     isEqualSignUsed: false,
@@ -22,22 +22,17 @@ export default function calculateReducer(
 ) {
   switch (action.type) {
     //  1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "," --- done
-    case "bigDisplayValueChanged":
+    case "mainNumberChanged":
       return {
         ...state,
-        bigDisplayString: state.isError
+        mainNumber: state.isError
           ? "" + action.payload.number
-          : verifyNumberOnChange(
-              state.bigDisplayString,
-              state.result,
-              state.isEqualSignUsed,
-              action.payload.number
-            ),
+          : verifyNumberOnChange(state, action.payload.number),
 
-        smallDisplayValuesArrayOfStrings: state.isError
+        historyArray: state.isError
           ? []
           : !state.isEqualSignUsed
-          ? state.smallDisplayValuesArrayOfStrings
+          ? state.historyArray
           : [],
         result: false,
         isEqualSignUsed: false,
@@ -49,14 +44,12 @@ export default function calculateReducer(
       };
 
     //  CE --- done
-    case "bigDisplayStringCleared":
+    case "mainNumberCleared":
       return {
         ...state,
-        bigDisplayString: "0",
-        smallDisplayValuesArrayOfStrings:
-          state.isError || state.isEqualSignUsed
-            ? []
-            : state.smallDisplayValuesArrayOfStrings,
+        mainNumber: "0",
+        historyArray:
+          state.isError || state.isEqualSignUsed ? [] : state.historyArray,
         result: false,
         isEqualSignUsed: false,
         lastNumberAndOperationString: state.isEqualSignUsed
@@ -70,8 +63,8 @@ export default function calculateReducer(
     case "allCleared":
       return {
         ...state,
-        bigDisplayString: "0",
-        smallDisplayValuesArrayOfStrings: [],
+        mainNumber: "0",
+        historyArray: [],
         lastNumberAndOperationString: "",
         result: false,
         isEqualSignUsed: false,
@@ -82,14 +75,8 @@ export default function calculateReducer(
     //  +, -, *, /, = --- done
     case "operationDone":
       const newSmallDisplayValuesObjectArrayWithError = createNewSmallDisplayObject(
-        state.smallDisplayValuesArrayOfStrings,
-        state.bigDisplayString,
-        action.payload.operation,
-        state.result,
-        state.isEqualSignUsed,
-        state.lastNumberAndOperationString,
-        state.isError,
-        state.isSignChanged
+        state,
+        action.payload.operation
       );
 
       const calculatedResultAndErrorObject = calculateResult(
@@ -98,8 +85,8 @@ export default function calculateReducer(
 
       return {
         ...state,
-        bigDisplayString: calculatedResultAndErrorObject.string,
-        smallDisplayValuesArrayOfStrings: newSmallDisplayValuesObjectArrayWithError,
+        mainNumber: calculatedResultAndErrorObject.string,
+        historyArray: newSmallDisplayValuesObjectArrayWithError,
         result:
           action.payload.operation === "=" && state.isError ? false : true,
         isEqualSignUsed:
@@ -113,79 +100,54 @@ export default function calculateReducer(
 
     //  sqr --- done
     case "powerCalculated":
-      const calculatedPowerObject = calculatePower(
-        state.smallDisplayValuesArrayOfStrings,
-        state.bigDisplayString,
-        state.isEqualSignUsed,
-        state.isSignChanged
-      );
+      const calculatedPowerObject = calculatePower(state);
 
       return {
         ...state,
-        bigDisplayString: calculatedPowerObject.bigString,
-        smallDisplayValuesArrayOfStrings: calculatedPowerObject.smallArray,
+        mainNumber: calculatedPowerObject.bigString,
+        historyArray: calculatedPowerObject.smallArray,
       };
 
     //  sqrt --- done
     case "squareRootCalculated":
-      const calculatedSquareRootObject = calculateSquareRoot(
-        state.smallDisplayValuesArrayOfStrings,
-        state.bigDisplayString,
-        state.isEqualSignUsed,
-        state.isSignChanged
-      );
+      const calculatedSquareRootObject = calculateSquareRoot(state);
 
       return {
         ...state,
-        bigDisplayString: calculatedSquareRootObject.bigString,
-        smallDisplayValuesArrayOfStrings: calculatedSquareRootObject.smallArray,
+        mainNumber: calculatedSquareRootObject.bigString,
+        historyArray: calculatedSquareRootObject.smallArray,
         isError: calculatedSquareRootObject.error,
       };
 
     //  1/x --- done
     case "oneByXDivided":
-      const oneByXDividedObject = divideOneByX(
-        state.smallDisplayValuesArrayOfStrings,
-        state.bigDisplayString,
-        state.isEqualSignUsed
-      );
+      const oneByXDividedObject = divideOneByX(state);
       return {
         ...state,
-        bigDisplayString: oneByXDividedObject.bigString,
-        smallDisplayValuesArrayOfStrings: oneByXDividedObject.smallArray,
+        mainNumber: oneByXDividedObject.bigString,
+        historyArray: oneByXDividedObject.smallArray,
         isError: oneByXDividedObject.error,
       };
 
     //  % --- done
     case "percentCalculated":
-      const percentCalculatedObject = calculatePercent(
-        state.smallDisplayValuesArrayOfStrings,
-        state.bigDisplayString,
-        state.isEqualSignUsed,
-        state.result
-      );
+      const percentCalculatedObject = calculatePercent(state);
       return {
         ...state,
-        bigDisplayString: percentCalculatedObject.bigString,
-        smallDisplayValuesArrayOfStrings: percentCalculatedObject.smallArray,
+        mainNumber: percentCalculatedObject.bigString,
+        historyArray: percentCalculatedObject.smallArray,
       };
 
     //  backspace --- done
     case "lastCharacterDeleted":
       return {
         ...state,
-        bigDisplayString: state.isError
+        mainNumber: state.isError
           ? "0"
-          : deleteLastCharacter.deleteLastCharacterFromBigDisplay(
-              state.bigDisplayString,
-              state.result
-            ),
-        smallDisplayValuesArrayOfStrings: state.isError
+          : deleteLastCharacter.deleteLastCharacterFromBigDisplay(state),
+        historyArray: state.isError
           ? []
-          : deleteLastCharacter.deleteSmallDisplay(
-              state.smallDisplayValuesArrayOfStrings,
-              state.isEqualSignUsed
-            ),
+          : deleteLastCharacter.deleteHistory(state),
         lastNumberAndOperationString: state.isError
           ? ""
           : state.lastNumberAndOperationString,
@@ -195,17 +157,14 @@ export default function calculateReducer(
 
     // +/- --- done
     case "signChanged":
-      const signChangedObject = changeSign(
-        state.bigDisplayString,
-        state.smallDisplayValuesArrayOfStrings
-      );
+      const signChangedObject = changeSign(state);
       return {
         ...state,
-        bigDisplayString: signChangedObject.bigString,
-        smallDisplayValuesArrayOfStrings:
+        mainNumber: signChangedObject.bigString,
+        historyArray:
           signChangedObject.smallArray !== null
             ? signChangedObject.smallArray
-            : state.smallDisplayValuesArrayOfStrings,
+            : state.historyArray,
         isSignChanged: signChangedObject.isSignChanged,
       };
 

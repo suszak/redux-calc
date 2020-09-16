@@ -1,43 +1,33 @@
 import { convertStringToNumber } from "./convertStringToNumber";
 import { convertNumberToString } from "./convertNumberToString";
 
-export const calculatePower = (
-  smallDisplayValuesArrayOfStrings,
-  bigDisplayString,
+export const calculatePower = ({
+  historyArray,
+  mainNumber,
   isEqualSignUsed,
-  isSignChanged
-) => {
-  if (isEqualSignUsed || smallDisplayValuesArrayOfStrings.length < 1) {
+  isSignChanged,
+}) => {
+  if (isEqualSignUsed || historyArray.length < 1) {
     //  "=" used or empty array
     return {
       bigString: convertNumberToString(
-        Math.pow(convertStringToNumber(bigDisplayString), 2)
+        Math.pow(convertStringToNumber(mainNumber), 2)
       ),
       smallArray: [
-        convertNumberToString(
-          Math.pow(convertStringToNumber(bigDisplayString), 2)
-        ),
+        convertNumberToString(Math.pow(convertStringToNumber(mainNumber), 2)),
       ],
     };
-  } else if (smallDisplayValuesArrayOfStrings.length > 0) {
+  } else if (historyArray.length > 0) {
     //  it's not a empty array
-    if (
-      isNaN(
-        convertStringToNumber(
-          smallDisplayValuesArrayOfStrings.slice(-1).join("")
-        )
-      )
-    ) {
+    if (isNaN(convertStringToNumber(historyArray.slice(-1).join("")))) {
       //  last character isn't number
       return {
         bigString: convertNumberToString(
-          Math.pow(convertStringToNumber(bigDisplayString), 2)
+          Math.pow(convertStringToNumber(mainNumber), 2)
         ),
         smallArray: [
-          ...smallDisplayValuesArrayOfStrings,
-          convertNumberToString(
-            Math.pow(convertStringToNumber(bigDisplayString), 2)
-          ),
+          ...historyArray,
+          convertNumberToString(Math.pow(convertStringToNumber(mainNumber), 2)),
         ],
       };
     } else {
@@ -45,18 +35,18 @@ export const calculatePower = (
       if (isSignChanged) {
         return {
           bigString: convertNumberToString(
-            Math.pow(convertStringToNumber(bigDisplayString), 2)
+            Math.pow(convertStringToNumber(mainNumber), 2)
           ),
 
           smallArray: [
             convertNumberToString(
-              Math.pow(convertStringToNumber(bigDisplayString), 2)
+              Math.pow(convertStringToNumber(mainNumber), 2)
             ),
           ],
         };
       } else {
-        const temp = smallDisplayValuesArrayOfStrings.map((element, index) =>
-          index !== smallDisplayValuesArrayOfStrings.length - 1
+        const temp = historyArray.map((element, index) =>
+          index !== historyArray.length - 1
             ? element
             : convertNumberToString(Math.pow(convertStringToNumber(element), 2))
         );

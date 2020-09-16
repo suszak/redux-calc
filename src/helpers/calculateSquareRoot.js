@@ -1,78 +1,65 @@
 import { convertStringToNumber } from "./convertStringToNumber";
 import { convertNumberToString } from "./convertNumberToString";
 
-export const calculateSquareRoot = (
-  smallDisplayValuesArrayOfStrings,
-  bigDisplayString,
+export const calculateSquareRoot = ({
+  historyArray,
+  mainNumber,
   isEqualSignUsed,
-  isSignChanged
-) => {
-  if (isEqualSignUsed || smallDisplayValuesArrayOfStrings.length < 1) {
+  isSignChanged,
+}) => {
+  if (isEqualSignUsed || historyArray.length < 1) {
     //  "=" used or empty array
-    if (convertStringToNumber(bigDisplayString) >= 0) {
+    if (convertStringToNumber(mainNumber) >= 0) {
       return {
         bigString: convertNumberToString(
-          Math.sqrt(convertStringToNumber(bigDisplayString))
+          Math.sqrt(convertStringToNumber(mainNumber))
         ),
         smallArray: [
-          convertNumberToString(
-            Math.sqrt(convertStringToNumber(bigDisplayString))
-          ),
+          convertNumberToString(Math.sqrt(convertStringToNumber(mainNumber))),
         ],
         error: false,
       };
     } else {
       return {
         bigString: "Invalid input",
-        smallArray: ["√(" + bigDisplayString + ")"],
+        smallArray: ["√(" + mainNumber + ")"],
         error: true,
       };
     }
-  } else if (smallDisplayValuesArrayOfStrings.length > 0) {
+  } else if (historyArray.length > 0) {
     //  it's not a empty array
-    if (
-      isNaN(
-        convertStringToNumber(
-          smallDisplayValuesArrayOfStrings.slice(-1).join("")
-        )
-      )
-    ) {
+    if (isNaN(convertStringToNumber(historyArray.slice(-1).join("")))) {
       //  last character isn't number
-      if (convertStringToNumber(bigDisplayString) >= 0) {
+      if (convertStringToNumber(mainNumber) >= 0) {
         return {
           bigString: convertNumberToString(
-            Math.sqrt(convertStringToNumber(bigDisplayString))
+            Math.sqrt(convertStringToNumber(mainNumber))
           ),
           smallArray: [
-            ...smallDisplayValuesArrayOfStrings,
-            convertNumberToString(
-              Math.sqrt(convertStringToNumber(bigDisplayString))
-            ),
+            ...historyArray,
+            convertNumberToString(Math.sqrt(convertStringToNumber(mainNumber))),
           ],
           error: false,
         };
       } else {
         return {
           bigString: "Invalid input",
-          smallArray: [
-            ...smallDisplayValuesArrayOfStrings,
-            "√(" + bigDisplayString + ")",
-          ],
+          smallArray: [...historyArray, "√(" + mainNumber + ")"],
           error: true,
         };
       }
     } else {
       //  last character is number
       if (isSignChanged) {
-        if (convertStringToNumber(bigDisplayString) >= 0) {
+        if (convertStringToNumber(mainNumber) >= 0) {
           return {
             bigString: convertNumberToString(
-              Math.sqrt(convertStringToNumber(bigDisplayString))
+              Math.sqrt(convertStringToNumber(mainNumber))
             ),
 
             smallArray: [
               convertNumberToString(
-                Math.sqrt(convertStringToNumber(bigDisplayString))
+                Math.sqrt(convertStringToNumber(mainNumber))
               ),
             ],
             error: false,
@@ -80,21 +67,14 @@ export const calculateSquareRoot = (
         } else {
           return {
             bigString: "Invalid input",
-            smallArray: [
-              ...smallDisplayValuesArrayOfStrings,
-              "√(" + bigDisplayString + ")",
-            ],
+            smallArray: [...historyArray, "√(" + mainNumber + ")"],
             error: true,
           };
         }
       } else {
-        if (
-          convertStringToNumber(
-            smallDisplayValuesArrayOfStrings.slice(-1).join("")
-          ) >= 0
-        ) {
-          const temp = smallDisplayValuesArrayOfStrings.map((element, index) =>
-            index !== smallDisplayValuesArrayOfStrings.length - 1
+        if (convertStringToNumber(historyArray.slice(-1).join("")) >= 0) {
+          const temp = historyArray.map((element, index) =>
+            index !== historyArray.length - 1
               ? element
               : convertNumberToString(Math.sqrt(convertStringToNumber(element)))
           );
@@ -106,10 +86,8 @@ export const calculateSquareRoot = (
         } else {
           return {
             bigString: "Invalid input",
-            smallArray: smallDisplayValuesArrayOfStrings.map((element, index) =>
-              index !== smallDisplayValuesArrayOfStrings.length - 1
-                ? element
-                : "√(" + element + ")"
+            smallArray: historyArray.map((element, index) =>
+              index !== historyArray.length - 1 ? element : "√(" + element + ")"
             ),
             error: true,
           };

@@ -1,29 +1,30 @@
 import { convertStringToNumber } from "./convertStringToNumber";
 import { convertNumberToString } from "./convertNumberToString";
 
-export const divideOneByX = (
-  smallDisplayValuesArrayOfStrings,
-  bigDisplayString,
-  isEqualSignUsed
-) => {
-  if (convertStringToNumber(bigDisplayString) !== 0) {
+export const divideOneByX = ({ historyArray, mainNumber, isEqualSignUsed }) => {
+  if (convertStringToNumber(mainNumber) !== 0) {
     if (!isEqualSignUsed) {
       return {
-        bigString: convertNumberToString(1/convertStringToNumber(bigDisplayString)),
-        smallArray: [...smallDisplayValuesArrayOfStrings, convertNumberToString(1/convertStringToNumber(bigDisplayString))],
+        bigString: convertNumberToString(1 / convertStringToNumber(mainNumber)),
+        smallArray: [
+          ...historyArray,
+          convertNumberToString(1 / convertStringToNumber(mainNumber)),
+        ],
         error: false,
       };
     } else {
-        return {
-            bigString: convertNumberToString(1/convertStringToNumber(bigDisplayString)),
-            smallArray: [convertNumberToString(1/convertStringToNumber(bigDisplayString))],
-            error: false,
-          };
+      return {
+        bigString: convertNumberToString(1 / convertStringToNumber(mainNumber)),
+        smallArray: [
+          convertNumberToString(1 / convertStringToNumber(mainNumber)),
+        ],
+        error: false,
+      };
     }
   } else {
     return {
       bigString: "Do not divide by zero",
-      smallArray: [...smallDisplayValuesArrayOfStrings, "1/(0)"],
+      smallArray: [...historyArray, "1/(0)"],
       error: true,
     };
   }

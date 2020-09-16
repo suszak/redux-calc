@@ -7,7 +7,7 @@ export const keyboard = [
   },
   {
     value: "CE",
-    function: calculatorActions.bigDisplayStringCleared(),
+    function: calculatorActions.mainNumberCleared(),
   },
   {
     value: "C",
@@ -35,15 +35,15 @@ export const keyboard = [
   },
   {
     value: "7",
-    function: calculatorActions.bigDisplayValueChanged(7),
+    function: calculatorActions.mainNumberChanged(7),
   },
   {
     value: "8",
-    function: calculatorActions.bigDisplayValueChanged(8),
+    function: calculatorActions.mainNumberChanged(8),
   },
   {
     value: "9",
-    function: calculatorActions.bigDisplayValueChanged(9),
+    function: calculatorActions.mainNumberChanged(9),
   },
   {
     value: "×",
@@ -51,15 +51,15 @@ export const keyboard = [
   },
   {
     value: "4",
-    function: calculatorActions.bigDisplayValueChanged(4),
+    function: calculatorActions.mainNumberChanged(4),
   },
   {
     value: "5",
-    function: calculatorActions.bigDisplayValueChanged(5),
+    function: calculatorActions.mainNumberChanged(5),
   },
   {
     value: "6",
-    function: calculatorActions.bigDisplayValueChanged(6),
+    function: calculatorActions.mainNumberChanged(6),
   },
   {
     value: "-",
@@ -67,15 +67,15 @@ export const keyboard = [
   },
   {
     value: "1",
-    function: calculatorActions.bigDisplayValueChanged(1),
+    function: calculatorActions.mainNumberChanged(1),
   },
   {
     value: "2",
-    function: calculatorActions.bigDisplayValueChanged(2),
+    function: calculatorActions.mainNumberChanged(2),
   },
   {
     value: "3",
-    function: calculatorActions.bigDisplayValueChanged(3),
+    function: calculatorActions.mainNumberChanged(3),
   },
   {
     value: "+",
@@ -87,11 +87,11 @@ export const keyboard = [
   },
   {
     value: "0",
-    function: calculatorActions.bigDisplayValueChanged(0),
+    function: calculatorActions.mainNumberChanged(0),
   },
   {
     value: ",",
-    function: calculatorActions.bigDisplayValueChanged(","),
+    function: calculatorActions.mainNumberChanged(","),
   },
   {
     value: "=",

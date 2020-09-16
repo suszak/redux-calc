@@ -1,22 +1,19 @@
-export const deleteLastCharacterFromBigDisplay = (bigDisplayString, result) => {
+export const deleteLastCharacterFromBigDisplay = ({ mainNumber, result }) => {
   if (!result) {
-    if (bigDisplayString.length > 1) {
-      return bigDisplayString.slice(0, -1);
+    if (mainNumber.length > 1) {
+      return mainNumber.slice(0, -1);
     } else {
       return "0";
     }
   } else {
-    return bigDisplayString;
+    return mainNumber;
   }
 };
 
-export const deleteSmallDisplay = (
-  smallDisplayArray,
-  isEqualSignUsed
-) => {
+export const deleteHistory = ({ historyArray, isEqualSignUsed }) => {
   if (isEqualSignUsed) {
     return [];
   } else {
-    return smallDisplayArray;
+    return historyArray;
   }
 };

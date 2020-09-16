@@ -14,47 +14,47 @@ const Keyboard = () => {
     switch (e.keyCode) {
       //    1
       case 49:
-        dispatch(calculatorActions.bigDisplayValueChanged(1));
+        dispatch(calculatorActions.mainNumberChanged(1));
         break;
       //    2
       case 50:
-        dispatch(calculatorActions.bigDisplayValueChanged(2));
+        dispatch(calculatorActions.mainNumberChanged(2));
         break;
       //    3
       case 51:
-        dispatch(calculatorActions.bigDisplayValueChanged(3));
+        dispatch(calculatorActions.mainNumberChanged(3));
         break;
       //    4
       case 52:
-        dispatch(calculatorActions.bigDisplayValueChanged(4));
+        dispatch(calculatorActions.mainNumberChanged(4));
         break;
       //    5
       case 53:
-        dispatch(calculatorActions.bigDisplayValueChanged(5));
+        dispatch(calculatorActions.mainNumberChanged(5));
         break;
       //    6
       case 54:
-        dispatch(calculatorActions.bigDisplayValueChanged(6));
+        dispatch(calculatorActions.mainNumberChanged(6));
         break;
       //    7
       case 55:
-        dispatch(calculatorActions.bigDisplayValueChanged(7));
+        dispatch(calculatorActions.mainNumberChanged(7));
         break;
       //    8
       case 56:
-        dispatch(calculatorActions.bigDisplayValueChanged(8));
+        dispatch(calculatorActions.mainNumberChanged(8));
         break;
       //    9
       case 57:
-        dispatch(calculatorActions.bigDisplayValueChanged(9));
+        dispatch(calculatorActions.mainNumberChanged(9));
         break;
       //    0
       case 48:
-        dispatch(calculatorActions.bigDisplayValueChanged(0));
+        dispatch(calculatorActions.mainNumberChanged(0));
         break;
       //    ,
       case 44:
-        dispatch(calculatorActions.bigDisplayValueChanged(","));
+        dispatch(calculatorActions.mainNumberChanged(","));
         break;
       //    +
       case 43:
@@ -91,7 +91,7 @@ const Keyboard = () => {
         break;
       //    delete (CE)
       case 46:
-        dispatch(calculatorActions.bigDisplayStringCleared());
+        dispatch(calculatorActions.mainNumberCleared());
         break;
 
       default:

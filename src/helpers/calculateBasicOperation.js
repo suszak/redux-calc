@@ -1,8 +1,8 @@
 import { convertStringToNumber } from "./convertStringToNumber";
 
 export const calculateBasicOperations = (
-  smallDisplayValuesArrayOfStrings,
-  bigDisplayString,
+  historyArray,
+  mainNumber,
   operation,
   isError,
   isEqualSignUsed,
@@ -22,7 +22,7 @@ export const calculateBasicOperations = (
         return {
           error: false,
           array: [
-            bigDisplayString,
+            mainNumber,
             ...lastNumberAndOperationString.split(" "),
             operation,
           ],
@@ -32,9 +32,9 @@ export const calculateBasicOperations = (
         return {
           error: false,
           array: [
-            bigDisplayString.slice(-1) !== ","
-              ? bigDisplayString
-              : bigDisplayString + "0",
+            mainNumber.slice(-1) !== ","
+              ? mainNumber
+              : mainNumber + "0",
             operation,
           ],
         };
@@ -45,7 +45,7 @@ export const calculateBasicOperations = (
         if (
           !isNaN(
             convertStringToNumber(
-              smallDisplayValuesArrayOfStrings.slice(-1).join("")
+              historyArray.slice(-1).join("")
             )
           )
         ) {
@@ -53,19 +53,19 @@ export const calculateBasicOperations = (
           if (isSignChanged) {
             return {
               error: false,
-              array: [bigDisplayString, operation],
+              array: [mainNumber, operation],
             };
           }
           return {
             error: false,
-            array: [...smallDisplayValuesArrayOfStrings, operation],
+            array: [...historyArray, operation],
           };
         } else if (operation !== "=") {
           //  +, -, *, /
           return {
             error: false,
-            array: smallDisplayValuesArrayOfStrings.map((element, index) =>
-              index !== smallDisplayValuesArrayOfStrings.length - 1
+            array: historyArray.map((element, index) =>
+              index !== historyArray.length - 1
                 ? element
                 : operation
             ),
@@ -75,8 +75,8 @@ export const calculateBasicOperations = (
           return {
             error: false,
             array: [
-              ...smallDisplayValuesArrayOfStrings,
-              bigDisplayString,
+              ...historyArray,
+              mainNumber,
               operation,
             ],
           };
@@ -86,10 +86,10 @@ export const calculateBasicOperations = (
         return {
           error: false,
           array: [
-            ...smallDisplayValuesArrayOfStrings,
-            bigDisplayString.slice(-1) !== ","
-              ? bigDisplayString
-              : bigDisplayString + "0",
+            ...historyArray,
+            mainNumber.slice(-1) !== ","
+              ? mainNumber
+              : mainNumber + "0",
             operation,
           ],
         };

@@ -1,14 +1,16 @@
 import { convertStringToNumber } from "./convertStringToNumber";
 
 export const createNewSmallDisplayObject = (
-  smallDisplayValuesArrayOfStrings,
-  bigDisplayString,
-  operation,
-  result,
-  isEqualSignUsed,
-  lastNumberAndOperationString,
-  isError,
-  isSignChanged
+  {
+    historyArray,
+    mainNumber,
+    result,
+    isEqualSignUsed,
+    lastNumberAndOperationString,
+    isError,
+    isSignChanged,
+  },
+  operation
 ) => {
   if (isError) {
     return [];
@@ -17,11 +19,11 @@ export const createNewSmallDisplayObject = (
     if (isEqualSignUsed) {
       if (operation === "=") {
         //  =
-        if (smallDisplayValuesArrayOfStrings.length === 2) {
-          return smallDisplayValuesArrayOfStrings;
+        if (historyArray.length === 2) {
+          return historyArray;
         } else {
           return [
-            bigDisplayString,
+            mainNumber,
             ...lastNumberAndOperationString.split(" "),
             operation,
           ];
@@ -29,58 +31,36 @@ export const createNewSmallDisplayObject = (
       } else {
         //  +, -, *, /
         return [
-          bigDisplayString.slice(-1) !== ","
-            ? bigDisplayString
-            : bigDisplayString + "0",
+          mainNumber.slice(-1) !== "," ? mainNumber : mainNumber + "0",
           operation,
         ];
       }
     } else {
       //  !isEqualSignUsed
       if (result) {
-        if (
-          !isNaN(
-            convertStringToNumber(
-              smallDisplayValuesArrayOfStrings.slice(-1).join("")
-            )
-          )
-        ) {
+        if (!isNaN(convertStringToNumber(historyArray.slice(-1).join("")))) {
           //  number
           if (isSignChanged) {
-            return [bigDisplayString, operation];
+            return [mainNumber, operation];
           }
-          return [...smallDisplayValuesArrayOfStrings, operation];
+          return [...historyArray, operation];
         } else if (operation !== "=") {
           //  +, -, *, /
-          return smallDisplayValuesArrayOfStrings.map((element, index) =>
-            index !== smallDisplayValuesArrayOfStrings.length - 1
-              ? element
-              : operation
+          return historyArray.map((element, index) =>
+            index !== historyArray.length - 1 ? element : operation
           );
         } else {
           //  =
-          return [
-            ...smallDisplayValuesArrayOfStrings,
-            bigDisplayString,
-            operation,
-          ];
+          return [...historyArray, mainNumber, operation];
         }
       } else {
         //  !result
-        if (
-          !isNaN(
-            convertStringToNumber(
-              smallDisplayValuesArrayOfStrings.slice(-1).join("")
-            )
-          )
-        ) {
-          return [...smallDisplayValuesArrayOfStrings, operation];
+        if (!isNaN(convertStringToNumber(historyArray.slice(-1).join("")))) {
+          return [...historyArray, operation];
         } else {
           return [
-            ...smallDisplayValuesArrayOfStrings,
-            bigDisplayString.slice(-1) !== ","
-              ? bigDisplayString
-              : bigDisplayString + "0",
+            ...historyArray,
+            mainNumber.slice(-1) !== "," ? mainNumber : mainNumber + "0",
             operation,
           ];
         }

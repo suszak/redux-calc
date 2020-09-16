@@ -1,23 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./display.scss";
-import { formatBigDisplay } from "../../helpers/formatBigDisplay";
+import { formatMainNumber } from "../../helpers/formatMainNumber";
 
 const Display = () => {
   const calculator = useSelector((state) => state.calculator);
-  const smallDisplayString = calculator.smallDisplayValuesArrayOfStrings.join(
+  const historyString = calculator.historyArray.join(
     " "
   );
 
   return (
     <section className="display">
       <p className="display__small">
-        {smallDisplayString.length <= 40
-          ? smallDisplayString
-          : "..." + smallDisplayString.slice(-40)}
+        {historyString.length <= 40
+          ? historyString
+          : "..." + historyString.slice(-40)}
       </p>
       <p className="display__big">
-        {formatBigDisplay(calculator.bigDisplayString)}
+        {formatMainNumber(calculator.mainNumber)}
       </p>
     </section>
   );
