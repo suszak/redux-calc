@@ -17,8 +17,8 @@ It is application which has to imitate Microsoft Calculator.
 
 Project is created with:
 
-- HTML5
-- CSS/SCSS
-- JavaScript ES6+
+- HTML
+- SCSS
+- JavaScript
 - React.js
 - Redux
