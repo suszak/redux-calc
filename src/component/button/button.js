@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./button.scss";
+import BackspaceIcon from '@material-ui/icons/Backspace';
 
 const Button = ({ value, onclick }) => {
   const calculator = useSelector((state) => state.calculator);
@@ -37,7 +38,7 @@ const Button = ({ value, onclick }) => {
           : () => dispatch(onclick)
       }
     >
-      {value}
+      {value === "⊲"?<BackspaceIcon />:value}
     </button>
   );
 };

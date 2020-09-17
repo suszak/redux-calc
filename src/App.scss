@@ -1,4 +1,4 @@
-.App {
+.app {
   width: 75%;
   max-width: 500px;
   min-width: 260px;
@@ -6,4 +6,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &__brightness {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.MuiSvgIcon-root {
+  font-size: 2rem;
 }
